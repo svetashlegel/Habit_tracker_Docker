@@ -18,7 +18,7 @@ def send_habits():
                 else:
                     users_award = habit.link_pleasant.action
                 message = (f"Трекер полезных привычек. Напоминание.\nДействие: {habit.action}\nМесто: {habit.place}"
-                           f"\nПродолжительность: {habit.duration}\nВаше вознаграждение: {users_award}")
+                           f"\nПродолжительность: {habit.duration} мин.\nВаше вознаграждение: {users_award}")
                 tg_send_message(chat_id, message)
         # WEEK DAY HABIT
         else:
@@ -31,5 +31,5 @@ def send_habits():
                     else:
                         users_award = habit.link_pleasant.action
                     message = (f"Трекер полезных привычек. Напоминание.\nДействие: {habit.action}\nМесто: {habit.place}"
-                               f"\nПродолжительность: {habit.duration}\nВаше вознаграждение: {users_award}")
+                               f"\nПродолжительность: {habit.duration} мин.\nВаше вознаграждение: {users_award}")
                     tg_send_message(chat_id, message)
