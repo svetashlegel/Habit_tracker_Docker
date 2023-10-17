@@ -11,7 +11,7 @@ class DurationValidator:
         duration = dict(value).get(self.field)
         duration = int(duration)
         if duration > 120:
-            raise ValidationError(f'Продолжительность задачи не может быть больше 120 минут! {value}')
+            raise ValidationError(f'Продолжительность задачи не может быть больше 120 минут!')
 
 
 class AwardValidator:

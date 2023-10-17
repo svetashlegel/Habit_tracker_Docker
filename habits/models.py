@@ -8,14 +8,14 @@ NULLABLE = {'blank': True, 'null': True}
 class Habit(models.Model):
 
     class Frequency(models.TextChoices):
-        daily = 'DAILY'
-        monday = 'MONDAY'
-        tuesday = 'TUESDAY'
-        wednesday = 'WEDNESDAY'
-        thursday = 'THURSDAY'
-        friday = 'FRIDAY'
-        saturday = 'SATURDAY'
-        sunday = 'SUNDAY'
+        daily = 'Daily'
+        monday = 'Monday'
+        tuesday = 'Tuesday'
+        wednesday = 'Wednesday'
+        thursday = 'Thursday'
+        friday = 'Friday'
+        saturday = 'Saturday'
+        sunday = 'Sunday'
 
     place = models.CharField(max_length=100, verbose_name='место выполнения задачи')
     time = models.TimeField(default='12:00', verbose_name='время выполнения задачи')

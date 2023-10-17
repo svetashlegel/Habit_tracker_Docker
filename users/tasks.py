@@ -15,7 +15,6 @@ def get_tg_chat_id():
                     if user.telegram_user_name.lower() == message['message']['from']['username'].lower():
                         user.chat_id = message['message']['from']['id']
                         user.save()
-                        print('Зарегистрирован новый пользователь')
                         tg_get_updates(message['update_id'])
                         text = f'Добро пожаловать! Сюда будут приходить напоминания о ваших привычках!'
                         tg_send_message(user.chat_id, text)
