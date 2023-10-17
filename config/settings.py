@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_simplejwt',
+    'django_celery_beat',
 
     'users',
     'habits',
@@ -136,14 +137,35 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
 
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+
 REST_FRAMEWORK = {
-    # 'DEFAULT_FILTER_BACKENDS': (
-    #     'django_filters.rest_framework.DjangoFilterBackend',
-    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_TIMEZONE = "Europe/Moscow"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULE = {
+    'get_tg_chat_id': {
+        'task': 'get_tg_chat_id',  # Путь к задаче
+        'schedule': timedelta(seconds=120),  # Расписание выполнения задачи (например, каждые 10 минут)
+    },
+    'send_habits': {
+        'task': 'send_habits',  # Путь к задаче
+        'schedule': timedelta(seconds=30),  # Расписание выполнения задачи (например, каждые 10 минут)
+    },
 }

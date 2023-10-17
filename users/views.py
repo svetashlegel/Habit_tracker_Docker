@@ -6,6 +6,7 @@ from rest_framework import status
 from users.models import User
 from users.serializers import UserSerializer, UserRegisterSerializer
 from users.permissions import IsOwnerOrReadOnly
+from users.tasks import get_tg_chat_id
 
 
 class UserListView(generics.ListAPIView):
@@ -42,7 +43,7 @@ class UserRegistrationView(generics.CreateAPIView):
         data = {}
         if serializer.is_valid():
             serializer.save()
-            data['response'] = True
+            data['response'] = f'Пользователь зарегистрирован, перейдите в чат-бот и активируйте его командой /start {request.data["telegram_user_name"]}'
             return Response(data, status=status.HTTP_200_OK)
         else:
             data = serializer.errors

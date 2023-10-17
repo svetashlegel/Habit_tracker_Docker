@@ -1,4 +1,5 @@
 from rest_framework.serializers import ValidationError
+from habits.models import Habit
 
 
 class DurationValidator:
@@ -36,3 +37,16 @@ class AwardValidator:
         else:
             if award or link_pleasant:
                 raise ValidationError('У приятной привычки не может быть вознаграждения.')
+
+
+class PleasantHabitValidator:
+
+    def __init__(self, field):
+        self.field = field
+
+    def __call__(self, value):
+        link_pleasant = dict(value).get(self.field)
+        if link_pleasant:
+            pleasant_habit = Habit.objects.get(pk=link_pleasant)
+            if not pleasant_habit.is_pleasant:
+                raise ValidationError('В связанные привычки могут попадать только привычки с признаком приятной привычки.')

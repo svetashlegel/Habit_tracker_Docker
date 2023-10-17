@@ -6,7 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["email"]
+        fields = ["id", "email", "telegram_user_name"]
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -14,11 +14,12 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'password2']
+        fields = ['email', 'telegram_user_name', 'password', 'password2']
 
     def save(self, *args, **kwargs):
         user = User(
             email=self.validated_data['email'],
+            telegram_user_name=self.validated_data['telegram_user_name'],
             is_superuser=False,
             is_staff=False,
             is_active=True
