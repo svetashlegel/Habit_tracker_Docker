@@ -22,7 +22,7 @@ class Habit(models.Model):
     action = models.CharField(max_length=100, verbose_name='действие')
     is_pleasant = models.BooleanField(default=False, verbose_name='признак приятной привычки')
     link_pleasant = models.ForeignKey('self', on_delete=models.CASCADE, **NULLABLE, verbose_name='связанная привычка')
-    frequency = models.CharField(choices=Frequency.choices, default=Frequency.daily, verbose_name='периодичность')
+    frequency = models.CharField(choices=Frequency.choices, default=Frequency.daily, max_length=10, verbose_name='периодичность')
     award = models.CharField(max_length=100, **NULLABLE, verbose_name='вознаграждение')
     duration = models.IntegerField(**NULLABLE, verbose_name='время выполнения')
     is_public = models.BooleanField(default=True, verbose_name='признак публичной привычки')
